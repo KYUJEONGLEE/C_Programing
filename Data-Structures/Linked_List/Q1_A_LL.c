@@ -100,8 +100,6 @@ int insertSortedLL(LinkedList *ll, int item)
 	// 만약 ll-> item < item < ll -> next -> item 이면 그 자리에 넣는다.
 	// 같으면 삽입 X
 
-	// ll의 head부터 검사한다.
-	// 만약 head 가 Null 이면 그 자리에 삽입
 	ListNode *newNode = malloc(sizeof(ListNode));
 	newNode->item = item;
 	newNode->next = NULL;
@@ -113,6 +111,8 @@ int insertSortedLL(LinkedList *ll, int item)
 	// 이런식으로 선언하면 지역변수라 함수가 끝나는 순간 사라진다.
 	// 반면에 malloc() 으로 만든 메모리는 free() 가 호출되기 전까지 유지된다.
 
+	// 연결 리스트가 비어 있으면 새 노드를 head로 연결한다.
+	// 첫 번째 노드가 되므로 삽입 위치는 인덱스 0이다.
 	if (ll->head == NULL)
 	{
 		ll->head = newNode;
@@ -120,9 +120,12 @@ int insertSortedLL(LinkedList *ll, int item)
 		return 0;
 	}
 
+	// 리스트 자체가 없거나, head의 값과 중복되면 삽입하지 않는다.
 	if (ll == NULL || item == ll->head->item)
 		return -1;
-	// head item 보다 newnode의 item 이 작은 경우에는 맨 앞에 넣어야한다.
+
+	// 삽입할 값이 현재 head보다 작으면 맨 앞에 삽입한다.
+	// 새 노드가 기존 head를 가리키게 한 뒤, head를 새 노드로 바꾼다.
 	if (item < ll->head->item)
 	{
 		newNode->next = ll->head;
@@ -144,9 +147,12 @@ int insertSortedLL(LinkedList *ll, int item)
 
 	while (cur != NULL)
 	{
+		// 현재 노드의 값이 item과 같으면 중복이므로 삽입하지 않는다.
 		if (cur->item == item)
 			return -1;
 
+		// item이 현재 노드 값보다 작으면,
+		// prev와 cur 사이가 삽입 위치이다.
 		if (item < cur->item)
 		{
 			newNode->next = prev->next;
@@ -154,11 +160,14 @@ int insertSortedLL(LinkedList *ll, int item)
 			ll->size++;
 			return index;
 		}
+		// 아직 삽입 위치를 찾지 못했으면 한 칸 뒤로 이동한다.
 		cur = cur->next;
 		prev = prev->next;
 		index += 1;
 	}
 
+	// 끝까지 갔는데 중간에 삽입하지 못했다면,
+	// item이 가장 큰 값이므로 맨 뒤에 삽입한다.
 	prev->next = newNode;
 	ll->size++;
 	return index;
