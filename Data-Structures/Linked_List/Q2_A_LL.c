@@ -109,7 +109,8 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 	if (ll1 == NULL || ll2 == NULL)
 		return;
 
-	// 삽입 할 위치의 노드
+	// temp : ll1에서 삽입 기준이 되는 노드
+	// insert : ll2에서 ll1으로 merge 할 노드
 	ListNode *temp = ll1->head;
 	// 마찬가지로 삽입 될 노드 : 항상 head
 	ListNode *insert = ll2->head;
@@ -117,21 +118,25 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 	//
 	while (temp != NULL && insert != NULL)
 	{
-		// ll2, ll1 을 그대로 접근해서 사용하면, 중간에 연결이 끊길수 있다.
+		// node1 : temp 다음에 원래 있던 ll1의 노드
+		// node2 : insert 다음에 원래 있던 ll2의 노드
 		ListNode *node1 = temp->next;
 		ListNode *node2 = insert->next;
 
-		// 삽입 될 노드의 next를 ll1 의 삽일할 위치 next로 설정
+		// ll2에서 ll1으로 삽입할 노드의 next를 node1(temp 다음)
+		// ll1의 temp에서 삽입될 ll2의 노드(insert)로 next 설정
 		insert->next = node1;
 		temp->next = insert;
-		// 기존 ll1의 노드를 삽입 할 노드 insert에 연결
 
+		// temp, insert 의 위치 이동
 		temp = node1;
 		insert = node2;
 
 		ll1->size--;
 		ll2->size++;
 	}
+	// ll1에 ll2 노드들을 연결 시킨 후에, ll2의 head를 ll1에 merge 안된 노드를
+	// 가리키게 해야한다.
 	ll2->head = insert;
 }
 
