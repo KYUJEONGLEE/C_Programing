@@ -117,6 +117,7 @@ void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, Linke
 		removeconnect->next = NULL;
 		resultFrontList->head = findNode(ll, 0);
 	}
+	// 홀수면
 	else
 	{
 		int backIndex = (size / 2) + 1;
