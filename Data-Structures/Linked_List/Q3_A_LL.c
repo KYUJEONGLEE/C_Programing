@@ -84,12 +84,6 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	// 홀수 item의 노드를 마지막 짝수 item 노드 뒤로 미는 함수
-	// findNode(ll,index) 함수를 사용할 수 있을까?
-	// while문을 돌면서 index = 0 ~ i 까지 가면서 해당 노드의 item의 값을 체크
-	// 만약 item 이 홀수면 마지막 짝수 노드의 next로 설정? => X
-	// 마지막 짝수를 찾는 방법이 뭘까
-
 	ListNode *cur;
 	ListNode *nextNode;
 
