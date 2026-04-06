@@ -94,6 +94,17 @@ int maxHeight(BTNode *node)
 
 {
     /* add your code here */
+    // 이진트리의 루트 노트를 가리키는 포인터?
+    if (node == NULL)
+        return -1;
+
+    int leftheight = maxHeight(node->left) + 1;
+    int rightheight = maxHeight(node->right) + 1;
+
+    if (leftheight > rightheight)
+        return leftheight;
+    else
+        return rightheight;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

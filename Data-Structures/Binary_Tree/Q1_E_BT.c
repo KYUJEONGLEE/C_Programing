@@ -129,6 +129,7 @@ int identical(BTNode *tree1, BTNode *tree2)
 
     if (tree1->item != tree2->item)
         return 0;
+
     int leftCheck = identical(tree1->left, tree2->left);
     int rightCheck = identical(tree1->right, tree2->right);
 
