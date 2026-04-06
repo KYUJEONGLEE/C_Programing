@@ -101,11 +101,11 @@ int sumOfOddNodes(BTNode *node)
     if (node == NULL)
         return 0;
 
-    if ((node->item) % 2 != 0) {
-        return sumOfOddNodes(node->left) + sumOfOddNodes(node->right) +
-               (node->item);
-    } else
-        return sumOfOddNodes(node->left) + sumOfOddNodes(node->right);
+    int sum = sumOfOddNodes(node->left) + sumOfOddNodes(node->right);
+    if ((node->item) % 2 != 0)
+        sum += node->item;
+
+    return sum;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
