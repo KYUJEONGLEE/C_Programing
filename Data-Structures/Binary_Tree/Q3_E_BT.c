@@ -99,12 +99,26 @@ int countOneChildNodes(BTNode *node)
     if (node == NULL)
         return 0;
 
+    // 왼쪽 자식만 있는 경우
+    // 현재 노드는 "자식이 1개인 노드"이므로 1을 더하고,
+    // 아래쪽 서브트리도 계속 검사
     if (node->left != NULL && node->right == NULL)
         return countOneChildNodes(node->left) + 1;
+
+    // 오른쪽 자식만 있는 경우
+    // 현재 노드가 자식 1개를 가지므로 1을 더하고,
+    // 오른쪽 서브트리도 계속 검사
     else if (node->left == NULL && node->right != NULL)
         return countOneChildNodes(node->right) + 1;
+
+    // 자식이 아예 없는 경우(리프 노드)
+    // 자식 1개인 노드가 아니므로 0 반환
     else if (node->left == NULL && node->right == NULL)
         return 0;
+
+    // 왼쪽, 오른쪽 자식이 둘 다 있는 경우
+    // 현재 노드는 조건에 해당하지 않으므로
+    // 왼쪽 서브트리와 오른쪽 서브트리에서 각각 개수를 세서 더함
     else
         return countOneChildNodes(node->left) + countOneChildNodes(node->right);
 }
